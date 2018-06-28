@@ -7,18 +7,24 @@
     <div class="col-md-8">
       <table class="table table-hover">
         <thead>
-          <td>Name</td>
+          <td>Product Name</td>
+          <td>Unit Price</td>
+          <td>Quantity</td>
           <td>Action</td>
         </thead>
         @foreach($products as $product)
         <tr>
           <td>{{  $product->name  }}</td>
+          <td>Rs.{{ $product->price  }}</td>
+          <td>{{  $product->stock  }}</td>
           <td>
-            <form method="post" action="{{route('product.destroy', ['id'=>$product->id])}}">
+            <form method="post" action="{{route('product.destroy', ['id'=>$product->id])}}" style="display:inline;">
               {{  csrf_field() }}
               {{ method_field('DELETE') }}
               <button type="submit" name="button" class="btn btn-danger">Delete</button>
             </form>
+            <a href="{{route('product.edit', ['id'=>$product->id])}}" class="btn btn-primary">Update</a>
+            <a href="{{route('product.show', ['id'=>$product->id])}}" class="btn btn-success">View Detail</a>
           </td>
         </tr>
         @endforeach
