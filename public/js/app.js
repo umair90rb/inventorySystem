@@ -995,7 +995,7 @@ var app = new Vue({
 
 $(document).ready(function () {
   setTimeout(function () {
-    $('.lightSpeedIn').slideUp("slow");
+    $('.lightSpeedIn').remove();
   }, 5000);
 });
 
