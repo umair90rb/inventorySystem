@@ -23,6 +23,8 @@
                 <li><a href="{{ route('product.index')  }}">Products</a></li>
                 <li><a href="{{ route('brand.index')  }}">Brands</a></li>
                 <li><a href="{{ route('categorie.index')  }}">Categories</a></li>
+                <li><a href="{{ route('customer.index')  }}">Customer</a></li>
+                <li><a href="{{ route('supplier.index')  }}">Supplier</a></li>
             </ul>
             @endif
             <!-- Right Side Of Navbar -->

@@ -8,24 +8,24 @@
       <div class="col-md-8">
         <table class="table table-hover">
           <thead>
-            <td>Customer Name</td>
+            <td>Supplier Name</td>
             <td>Contact No</td>
             <td>Email</td>
             <td>Action</td>
           </thead>
-          @foreach($customers as $customer)
+          @foreach($suppliers as $supplier)
           <tr>
-            <td>{{  $customer->name  }}</td>
-            <td>{{ $customer->contact  }}</td>
-            <td>{{  $customer->email }}</td>
+            <td>{{  $supplier->name  }}</td>
+            <td>{{ $supplier->contact  }}</td>
+            <td>{{  $supplier->email }}</td>
             <td>
-              <form method="post" action="{{route('customer.destroy', ['id'=>$customer->id])}}" style="display:inline;">
+              <form method="post" action="{{route('supplier.destroy', ['id'=>$supplier->id])}}" style="display:inline;">
                 {{  csrf_field() }}
                 {{ method_field('DELETE') }}
                 <button type="submit" name="button" class="btn btn-danger">Delete</button>
               </form>
-              <a href="{{route('customer.edit', ['id'=>$customer->id])}}" class="btn btn-primary">Update</a>
-              <a href="{{route('customer.show', ['id'=>$customer->id])}}" class="btn btn-success">View Detail</a>
+              <a href="{{route('supplier.edit', ['id'=>$supplier->id])}}" class="btn btn-primary">Update</a>
+              <a href="{{route('supplier.show', ['id'=>$supplier->id])}}" class="btn btn-success">View Detail</a>
             </td>
           </tr>
           @endforeach
@@ -33,7 +33,7 @@
       </div>
       <div class="col-md-4 ">
         
-        <a href="{{ route('customer.create') }}" class="btn btn-primary btn-block">Add Customer</a>
+        <a href="{{ route('supplier.create') }}" class="btn btn-primary btn-block">Add Supplier</a>
 
       </div>
     </div>

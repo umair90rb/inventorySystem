@@ -19,12 +19,12 @@
 
             <div class="form-group">
               <label for="price">Contact Number</label>
-              <input type="text" name="price" class="form-control" id="price" placeholder="Contact Number">
+              <input type="text" name="contact" class="form-control" id="price" placeholder="Contact Number">
             </div>
 
             <div class="form-group">
               <label for="stock">Customer Email</label>
-              <input type="text" name="stock" class="form-control" id="stock" placeholder="Customer Email">
+              <input type="text" name="email" class="form-control" id="stock" placeholder="Customer Email">
             </div>
 
             <div class="form-group">

@@ -1,5 +1,5 @@
 @if ($errors->any())
-    <div class="row animated lightSpeedIn">
+    <div class="row animated bounce">
       <div class="alert alert-danger" >
           <ul>
               @foreach ($errors->all() as $error)

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
+use App\Supplier;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
-        return view('customer/index', compact('customers'));
+        $suppliers = Supplier::all();
+        return view('supplier/index', compact('suppliers'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer/create');
+        return view('supplier/create');        
     }
 
     /**
@@ -43,47 +43,47 @@ class CustomerController extends Controller
             'address' =>  'required|regex:/^[\pL\s\-]+$/u',
             'comment' =>  'regex:/^[\pL\s\-]+$/u',
           ]);
-          Customer::create([
+          Supplier::create([
             'name' =>  request('name'),
             'contact' =>  request('contact'),
             'email' =>  request('email'),
             'address' =>  request('address'),
             'comment' =>  request('comment'),
           ]);
-          $request->session()->flash('status', 'Customer added Successfully!');
-          return redirect()->route('customer.index');
+          $request->session()->flash('status', 'Supplier added Successfully!');
+          return redirect()->route('supplier.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show(Supplier $supplier)
     {
-        return view('customer.show', compact('customer'));        
+        return view('supplier.show', compact('supplier'));        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(Supplier $supplier)
     {
-      return view('customer.edit', compact('customer'));        
+      return view('supplier.edit', compact('supplier'));    
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $customer
+     * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Supplier $supplier)
     {
         $this->validate($request, [
             'name' =>  'required|regex:/^[\pL\s\-]+$/u',
@@ -92,27 +92,27 @@ class CustomerController extends Controller
             'address' =>  'required|regex:/^[\pL\s\-]+$/u',
             'comment' =>  'nullable|regex:/^[\pL\s\-]+$/u',
           ]);
-          $customer->update([
+          $supplier->update([
             'name' =>  request('name'),
             'contact' =>  request('contact'),
             'email' =>  request('email'),
             'address' =>  request('address'),
             'comment' =>  request('comment'),
           ]);
-          $request->session()->flash('status', 'Customer detail Updated Successfully!');
-          return redirect()->route('customer.index');
+        $request->session()->flash('status', 'Supplier detail Updated Successfully!');
+        return redirect()->route('supplier.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer, Request $request)
+    public function destroy(Supplier $supplier, Request $request)
     {
-        $customer->delete();
-        $request->session()->flash('status', 'Customer deleted Successfully!');
-        return redirect()->route('customer.index');
+        $supplier->delete();
+        $request->session()->flash('status', 'Supplier deleted Successfully!');
+        return redirect()->route('supplier.index');
     }
 }
