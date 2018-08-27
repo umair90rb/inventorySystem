@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\SalesOrder;
+use App\Order;
 use Illuminate\Http\Request;
 
-class SalesOrderController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class SalesOrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        return view('order/index', compact('orders'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SalesOrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('order/create');
     }
 
     /**
@@ -41,10 +42,10 @@ class SalesOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SalesOrder  $salesOrder
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(SalesOrder $salesOrder)
+    public function show(Order $order)
     {
         //
     }
@@ -52,10 +53,10 @@ class SalesOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SalesOrder  $salesOrder
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(SalesOrder $salesOrder)
+    public function edit(Order $order)
     {
         //
     }
@@ -64,10 +65,10 @@ class SalesOrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SalesOrder  $salesOrder
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SalesOrder $salesOrder)
+    public function update(Request $request, Order $order)
     {
         //
     }
@@ -75,10 +76,10 @@ class SalesOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SalesOrder  $salesOrder
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SalesOrder $salesOrder)
+    public function destroy(Order $order)
     {
         //
     }

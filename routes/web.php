@@ -18,4 +18,6 @@ Route::group(['middleware'=>'auth'],function(){
 
   Route::resource('/supplier', 'SupplierController');
 
+  Route::resource('/order', 'OrderController');
+
 });
