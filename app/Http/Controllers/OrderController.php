@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use App\Customer;
+use App\Product;
 
 class OrderController extends Controller
 {
@@ -36,7 +38,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return "all is gooding";
     }
 
     /**
@@ -82,5 +84,25 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+    /**
+     * Find customer detail which selected in order form.
+     * @param \App\Request $request
+     * @return \App\Customer $customer
+     */
+    public function getCustomer(Request $request)
+    {
+        $customer = Customer::find($request->input('id'));
+        return $customer;
+    }
+    /**
+     * Find product detail which selected in order form.
+     * @param \App\Request $request
+     * @return \App\Product $customer
+     */
+    public function getProduct(Request $request)
+    {
+        $product = Product::find($request->input('id'));
+        return $product;
     }
 }

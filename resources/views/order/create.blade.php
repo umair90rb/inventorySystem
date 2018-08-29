@@ -10,7 +10,7 @@
     
     <div class="container">
       
-    <form method="post" action="{{route('customer.store')}}">
+    <form method="post" action="{{route('order.store')}}">
             {{  csrf_field() }}
       
     <div class="col-md-9">
@@ -21,8 +21,9 @@
           
           
           <div class="row">
-            
-            
+
+          
+
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <div class="form-group">
                   <label for="name">Customer Name</label>
@@ -37,14 +38,14 @@
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <div class="form-group">
                 <label for="contact">Customer Contact</label>
-                <input type="text" class="form-control" id="contact" placeholder="Customer Contact">
+                <input type="text" class="form-control" id="contact" placeholder="Customer Contact" readonly>
               </div>    
             </div>
             
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <div class="form-group">
                 <label for="email">Customer Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Customer Email">
+                <input type="text" class="form-control" id="email" placeholder="Customer Email" readonly>
               </div>    
             </div>
             
@@ -61,8 +62,8 @@
                  <div class="col-md-4">
                    
                   <div class="form-group">
-                    <label for="name">Product Name</label>
-                    <select name="name" class="form-control" id="name">
+                    <label for="productName">Product Name</label>
+                    <select name="productName" class="form-control" id="productName">
                       @foreach($products->products() as $product)
                         <option value="{{$product->id}}">{{$product->name}}</option>
                       @endforeach
@@ -84,7 +85,7 @@
                    
                      <div class="form-group">
                        <label  for="productPrice">Product Unit Price</label>
-                       <input type="email" name="productPrice" class="form-control" id="productPrice" placeholder="Product Unit Price">
+                       <input type="email" name="productPrice" class="form-control" id="productPrice" placeholder="Product Unit Price" readonly>
                      </div>
 
                  </div>
@@ -175,6 +176,42 @@
       
     </div>
   </div>
+<button id='test'>Test</button>
+<div id='div1'></div>
+@endsection
 
+@section('script')
+
+  <script>
+    
+    
+    $('#name').change(function(){
+      $("#name option:selected").each(function(){
+        $.ajax({
+          method: "POST",
+          url: "{{route('contactEmail')}}",
+          data: { id: $(this).val(), _token: $('[name="_token"]').val()  },
+          success: function(result){
+            $('#contact').val(result.contact);
+            $('#email').val(result.email);
+          }
+        });
+      });
+    });
+
+    $('#productName').change(function(){
+      $("#productName option:selected").each(function(){
+        $.ajax({
+          method: "POST",
+          url: "{{route('productDetail')}}",
+          data: { id: $(this).val(), _token: $('[name="_token"]').val()  },
+          success: function(result){
+            $('#productPrice').val(result.price);
+          }
+        });
+      });
+    });
+
+  </script>
 
 @endsection

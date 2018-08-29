@@ -1,5 +1,5 @@
 <?php
-
+use App\Customer;
 Route::get('/', function () { return view('welcome');});
 
 Auth::routes();
@@ -19,5 +19,9 @@ Route::group(['middleware'=>'auth'],function(){
   Route::resource('/supplier', 'SupplierController');
 
   Route::resource('/order', 'OrderController');
+
+  Route::post('/customerPhoneEmail', 'OrderController@getCustomer')->name('contactEmail');
+
+  Route::post('/productDetail', 'OrderController@getProduct')->name('productDetail');
 
 });
