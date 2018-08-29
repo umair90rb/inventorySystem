@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
             $table->string('payment_method');
+            $table->string('shipping_address');
+            $table->string('city');
             $table->integer('discount');
             $table->integer('total');
             $table->timestamps();
