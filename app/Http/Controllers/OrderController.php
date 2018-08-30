@@ -6,7 +6,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Customer;
 use App\Product;
-
+use Carbon\Carbon;
 class OrderController extends Controller
 {
     /**
@@ -38,7 +38,26 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        return "all is gooding";
+       $id = Order::insertGetId([
+            'customer_id' =>  $request->input('name'),
+            'payment_method' =>  $request->input('payment_method'),
+            'discount' =>  $request->input('discount'),
+            'total' =>  $request->input('total'),
+            'created_at' =>  Carbon::now()->format("Y-m-d H:i:s"),
+            'updated_at' =>  Carbon::now()->format("Y-m-d H:i:s"),
+          ]);
+        $order = Order::find($id);
+        foreach($request->input('productName') as $product){
+            //foreach($request->input('productQuantity') as $quantity){
+                $order->products()->attach($product);
+            //}
+        }
+        $request->session()->flash('status', 'Product added Successfully!');
+        return redirect()->route('order.index');
+        // foreach($request->input('productName') as $a) {
+        //     echo $a;
+        //     echo "\n";
+        // }
     }
 
     /**

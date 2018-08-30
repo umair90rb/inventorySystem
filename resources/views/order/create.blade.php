@@ -28,6 +28,7 @@
               <div class="form-group">
                   <label for="name">Customer Name</label>
                     <select name="name" class="form-control" id="name">
+                      <option value="">Select Customer</option>
                       @foreach($customers->customers() as $customer)
                         <option value="{{$customer->id}}">{{$customer->name}}</option>
                       @endforeach
@@ -55,15 +56,16 @@
         
           
           <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body" id="productList">
                
-              <div class="row">
+              <div class="row productRow" >
 
-                 <div class="col-md-4">
+                 <div class="col-md-3">
                    
                   <div class="form-group">
                     <label for="productName">Product Name</label>
-                    <select name="productName" class="form-control" id="productName">
+                    <select name="productName[]" class="form-control">
+                      <option value="">Select Product</option>
                       @foreach($products->products() as $product)
                         <option value="{{$product->id}}">{{$product->name}}</option>
                       @endforeach
@@ -72,38 +74,47 @@
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-3">
                    
                      <div class="form-group">
                        <label  for="productQuantity">Product Quantity</label>
-                       <input type="email" name="productQuantity" class="form-control" id="productQuantity" placeholder="Enter Product Quantity">
+                       <input type="text" name="productQuantity[]" class="form-control" placeholder="Enter Product Quantity">
                      </div>
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-3">
                    
                      <div class="form-group">
                        <label  for="productPrice">Product Unit Price</label>
-                       <input type="email" name="productPrice" class="form-control" id="productPrice" placeholder="Product Unit Price" readonly>
+                       <input type="text" name="productPrice[]" class="form-control" placeholder="Product Unit Price" readonly>
+                     </div>
+
+                 </div>
+                 
+                 <div class="col-md-3">
+                   
+                     <div class="form-group">
+                       <label  for="totalProductCost">Total Product Cost</label>
+                       <input type="text" id="totalProductCost" name="totalProductCost[]" class="form-control" placeholder="Total Product Cost" readonly>
                      </div>
 
                  </div>
 
               </div>
 
-              
-              <div class="row">
+
+              <div class="row" id="buttonRow">
                 
                 
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   
-                  <button type="button"  class="btn btn-danger">Delete Row</button>
+                  <button type="button"  class="btn btn-danger" id="removeRow" >Delete Row</button>
                     
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                  <button type="button"  class="btn btn-success pull-right">Insert Row</button>
+                  <button type="button"  class="btn btn-success pull-right" id="addNewRow" >Insert Row</button>
                   
                 </div>
                 
@@ -155,14 +166,19 @@
     <div class="panel panel-default">
       <div class="panel-body">
 
-          <div class="form-group">
-          <label for="total">Total</label>
-          <input type="text" name="total" class="form-control" id="total" placeholder="Total"/>
+        <div class="form-group">
+          <label for="subTotal">Sub Total</label>
+          <input type="text" name="subTotal" class="form-control" id="subTotal" placeholder="Sub Total"/>
         </div>
-
+        
         <div class="form-group">
           <label for="discount">Discount</label>
           <input type="text" name="discount" class="form-control" id="discount" placeholder="Discount"/>
+        </div>
+
+        <div class="form-group">
+          <label for="total">Total</label>
+          <input type="text" name="total" class="form-control" id="total" placeholder="Total"/>
         </div>
 
         <button type="submit" class="btn btn-warning btn-block">Create Order</button>
@@ -173,18 +189,19 @@
     </div>
 
     </form>
-      
+ 
     </div>
   </div>
-<button id='test'>Test</button>
-<div id='div1'></div>
+
 @endsection
 
 @section('script')
 
   <script>
-    
-    
+    //calculate total
+
+
+    //get user information and put in fields
     $('#name').change(function(){
       $("#name option:selected").each(function(){
         $.ajax({
@@ -198,17 +215,34 @@
         });
       });
     });
+    
+    //Add new product row in product list  
+    $("#addNewRow").click(function(){
+      var productRow = $(".productRow").first().clone();
+      $("[name='productPrice[]']", productRow).val(null);
+      $("[name='productQuantity[]']", productRow).val(null);
+      $(productRow).insertBefore("#buttonRow");
+    });
 
-    $('#productName').change(function(){
-      $("#productName option:selected").each(function(){
-        $.ajax({
-          method: "POST",
-          url: "{{route('productDetail')}}",
-          data: { id: $(this).val(), _token: $('[name="_token"]').val()  },
-          success: function(result){
-            $('#productPrice').val(result.price);
-          }
-        });
+    //Delete row from product list minimum 1
+    $("#removeRow").click(function(){
+      if($(".productRow").length == 1){
+        alert("Last row can't be deleted!");
+        return false;
+      }
+      $(".productRow").last().remove();
+    });
+  
+    //get product price and put in field it has a bug inside
+    var tar = $("#productList").change(function(event){});
+    $("#productList").change(function(event){
+      $.ajax({
+        method: "POST",
+        url: "{{route('productDetail')}}",
+        data: { id: $(event.target).val(), _token: $('[name="_token"]').val()  },
+        success: function(data){
+          $("[name='productPrice[]']").last().val(data.price);
+        }
       });
     });
 
