@@ -94,7 +94,28 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        //dd($order->products);
+        $order->update([
+            'customer_id' =>  $request->input('name'),
+            'shipping_address' =>  $request->input('shipping_address'),
+            'city' =>  $request->input('city'),
+            'payment_method' =>  $request->input('payment_method'),
+            'sub_total' =>  $request->input('subTotal'),
+            'discount' =>  $request->input('discount'),
+            'total' =>  $request->input('total'),
+            'updated_at' =>  Carbon::now()->format("Y-m-d H:i:s"),
+        ]);
+        
+        foreach($order->products as $product){
+            $order->products()->detach($order->products);
+        }
+        $products = $request->input('productName');
+        $quantities = $request->input('productQuantity');
+        foreach(array_combine($products, $quantities) as  $product => $quantity){
+            $order->products()->attach($product, ['quantity'=>$quantity]);
+        }
+        $request->session()->flash('status', 'Order updated Successfully!');
+        return redirect()->route('order.index');
     }
 
     /**

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['customer_id', 'payment_method', 'discount', 'total'];
+    protected $fillable = ['customer_id', 'shipping_address', 'city', 'payment_method', 'payment_method', 'sub_total', 'discount', 'total'];
     
     /**
      * The products that belong to the order.

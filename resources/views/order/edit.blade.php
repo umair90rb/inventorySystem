@@ -10,9 +10,9 @@
     
     <div class="container">
       
-    <form method="post" action="{{route('order.store')}}">
+    <form method="post" action="{{route('order.update' , ['id' => $order->id ])}}">
             {{  csrf_field() }}
-      
+            {{ method_field('PUT') }}
     <div class="col-md-9">
 
       <div class="panel panel-default">
@@ -190,7 +190,7 @@
           <input type="text" name="total" class="form-control" id="total" value="{{$order->total}}" placeholder="Total"/>
         </div>
 
-        <button type="submit" class="btn btn-warning btn-block">Create Order</button>
+        <button type="submit" class="btn btn-warning btn-block">Update Order</button>
       </div>
     </div>
     
