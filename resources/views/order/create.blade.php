@@ -105,17 +105,18 @@
 
 
               <div class="row" id="buttonRow">
-                
-                
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  
-                  <button type="button"  class="btn btn-danger" id="removeRow" >Delete Row</button>
-                    
-                </div>
+
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                  <button type="button"  class="btn btn-success pull-right" id="addNewRow" >Insert Row</button>
+                  <button type="button"  class="btn btn-success " id="addNewRow" >Insert Row</button>
+
+                </div>
+
+                
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   
+                  <button type="button"  class="btn btn-danger pull-right" id="removeRow" >Delete Row</button>
+                    
                 </div>
                 
 

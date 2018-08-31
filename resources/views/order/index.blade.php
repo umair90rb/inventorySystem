@@ -10,14 +10,12 @@
           <thead>
             <td>Customer Name</td>
             <td>Order Date</td>
-            <td>Status</td>
             <td>Action</td>
           </thead>
           @foreach($orders as $order)
           <tr>
           <td>{{  $order->customer->name  }}</td>
-            <td>{{ Carbon\Carbon::parse($order->created_at)->toFormattedDateString()  }}</td>
-            <td>{{  $order->total }}</td>
+            <td>{{ $order->created_at->toFormattedDateString()  }}</td>
             <td>
               <form method="post" action="{{route('order.destroy', ['id'=>$order->id])}}" style="display:inline;">
                 {{  csrf_field() }}

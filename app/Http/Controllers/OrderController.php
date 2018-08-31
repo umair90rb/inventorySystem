@@ -38,27 +38,30 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-       $id = Order::insertGetId([
+       
+        $id = Order::insertGetId([
             'customer_id' =>  $request->input('name'),
+            'shipping_address' =>  $request->input('shipping_address'),
+            'city' =>  $request->input('city'),
             'payment_method' =>  $request->input('payment_method'),
+            'sub_total' =>  $request->input('subTotal'),
             'discount' =>  $request->input('discount'),
             'total' =>  $request->input('total'),
             'created_at' =>  Carbon::now()->format("Y-m-d H:i:s"),
             'updated_at' =>  Carbon::now()->format("Y-m-d H:i:s"),
-          ]);
+        ]);
+     
         $order = Order::find($id);
-        foreach($request->input('productName') as $product){
-            //foreach($request->input('productQuantity') as $quantity){
-                $order->products()->attach($product);
-            //}
+        $products = $request->input('productName');
+        $quantities = $request->input('productQuantity');
+        foreach(array_combine($products, $quantities) as  $product => $quantity){
+            $order->products()->attach($product, ['quantity'=>$quantity]);
         }
-        $request->session()->flash('status', 'Product added Successfully!');
+        $request->session()->flash('status', 'Order Created Successfully!');
         return redirect()->route('order.index');
-        // foreach($request->input('productName') as $a) {
-        //     echo $a;
-        //     echo "\n";
-        // }
+
     }
+
 
     /**
      * Display the specified resource.
@@ -68,7 +71,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('order/show', compact('order'));
     }
 
     /**
@@ -79,7 +82,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return view('order/edit', compact('order'));
     }
 
     /**
@@ -100,9 +103,12 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Order $order, Request $request)
     {
-        //
+        $order->products()->detach($order->products);
+        $order->delete();
+        $request->session()->flash('status', 'Order deleted Successfully!');
+        return redirect()->route('order.index');
     }
     /**
      * Find customer detail which selected in order form.
