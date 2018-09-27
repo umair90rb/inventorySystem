@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Product;
 use App\Brand;
 use App\Categorie;
@@ -9,6 +10,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+  public function __construct()
+  {
+    if(Gate::denies('product')){
+      abort(404);
+    }
+  }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +25,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+      
       $products = Product::all();
-        return view('product.index', compact('products'));
+      return view('product.index', compact('products'));
     }
 
     /**
@@ -27,6 +37,10 @@ class ProductController extends Controller
      */
     public function create()
     {
+      // if(Gate::denies('product')){
+      //   return response()
+      //   ->view('layouts.403');
+      // }
       $brands = Brand::all();
       $categories = Categorie::all();
         return view('product.create', compact('brands', 'categories'));

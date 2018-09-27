@@ -20,12 +20,16 @@
             <!-- Left Side Of Navbar -->
             @if(Auth::user())
             <ul class="nav navbar-nav">
-                <li><a href="{{ route('product.index')  }}">Products</a></li>
+                @can('product')
+                    <li><a href="{{ route('product.index')  }}">Products</a></li>
+                @endcan
                 <li><a href="{{ route('brand.index')  }}">Brands</a></li>
                 <li><a href="{{ route('categorie.index')  }}">Categories</a></li>
                 <li><a href="{{ route('customer.index')  }}">Customers</a></li>
                 <li><a href="{{ route('supplier.index')  }}">Suppliers</a></li>
-                <li><a href="{{ route('order.index')  }}">Orders</a></li>
+                @can('order')
+                    <li><a href="{{ route('order.index')  }}">Orders</a></li>
+                @endcan
             </ul>
             @endif
             <!-- Right Side Of Navbar -->

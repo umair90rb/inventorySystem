@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Order;
-use Illuminate\Http\Request;
 use App\Customer;
 use App\Product;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        if(Gate::denies('order')){
+        abort(404);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
