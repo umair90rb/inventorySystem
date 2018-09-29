@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
+    
 } catch (e) {}
 
 /**
@@ -51,4 +52,3 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
-var mdbootstrap = require('mdbootstrap');

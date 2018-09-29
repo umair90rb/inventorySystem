@@ -10,6 +10,8 @@ Route::group(['middleware'=>'auth'],function(){
 
   Route::resource('/categorie', 'CategorieController');
 
+  Route::resource('/product', 'ProductController');
+
   Route::resource('/brand', 'BrandController');
 
   Route::resource('/customer', 'CustomerController');

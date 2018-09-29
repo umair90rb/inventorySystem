@@ -13,7 +13,7 @@ class ProductController extends Controller
 
   public function __construct()
   {
-    if(Gate::denies('product')){
+    if(gate()->allows('product')){
       abort(404);
     }
   }
